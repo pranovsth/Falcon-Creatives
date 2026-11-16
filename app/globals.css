@@ -1,0 +1,1720 @@
+/* ==========================================================================
+   Falcon Creatives
+   Units: the Figma frame is 1920px wide. On desktop 1rem = 10 design px
+   (html font-size = 100vw / 192), so 33.4rem is exactly "334px in Figma" and
+   the whole page scales 1:1 with the viewport. On small screens 1rem = 10px
+   on a 390px-wide phone and the layout switches to a single column.
+   ========================================================================== */
+
+:root {
+  --blue: #0d8bd8;
+  --sky: #acc2cf;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  font-size: calc(100vw / 192);
+  scrollbar-width: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+html.is-locked {
+  overflow: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--sky);
+  color: #000;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+ul,
+ol {
+  list-style: none;
+}
+img {
+  display: block;
+  max-width: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  border-radius: 0;
+}
+button {
+  cursor: pointer;
+}
+::selection {
+  background: var(--blue);
+  color: #fff;
+}
+:focus-visible {
+  outline: 0.2rem solid var(--blue);
+  outline-offset: 0.3rem;
+}
+.footer :focus-visible,
+.menu :focus-visible,
+.hero-rail:focus-visible {
+  outline-color: #fff;
+}
+.blue {
+  color: var(--blue);
+}
+
+/* ---------- Shared pieces ---------- */
+
+.word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.12em 0.05em 0.2em;
+  margin: -0.12em -0.05em -0.2em;
+}
+.word {
+  display: inline-block;
+  will-change: transform;
+}
+
+.pic-wrap {
+  position: relative;
+}
+.pic,
+.pic-inner,
+.pic-fit {
+  position: absolute;
+  inset: 0;
+}
+.pic {
+  overflow: hidden;
+}
+.pic-inner {
+  transition: transform 1.2s var(--ease);
+}
+.pic-parallax {
+  inset: -8% 0;
+  transition: none;
+  will-change: transform;
+}
+/* Off-centre crop of the 3:2 camera/dancer photo, as cropped in Figma */
+.pic-crop {
+  position: absolute;
+  top: 0;
+  left: -61.9%;
+  width: 214.32%;
+  height: 100%;
+}
+.pic-fit img,
+.pic-crop img,
+.dark-bg-img img {
+  object-fit: cover;
+}
+
+.dark-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+}
+.dark-bg-img {
+  position: absolute;
+  inset: -10% 0;
+  will-change: transform;
+}
+.dark-bg-shade {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+}
+.dark-bg-noise {
+  position: absolute;
+  inset: 0;
+  background: url("/images/noise.png") 0 0 / 22rem 22rem;
+  opacity: 0.1;
+}
+
+.big-title {
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0.016em 0.016em rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* Underlined text link ("View Work") */
+.line-link {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  padding-bottom: 0.3em;
+}
+.line-link::before,
+.line-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.1em;
+  background: var(--blue);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease);
+}
+.line-link::after {
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition-delay: 0.12s;
+}
+.line-link:hover::before {
+  transform: scaleX(0);
+}
+.line-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Big blue arrow links ("View All", "More") */
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.13em;
+  font-weight: 700;
+  color: var(--blue);
+  white-space: nowrap;
+}
+.arrow-link img {
+  width: 0.875em;
+  height: 0.78em;
+  transition: transform 0.5s var(--ease);
+}
+.arrow-link span {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 0.06em no-repeat;
+  transition: background-size 0.5s var(--ease);
+}
+.arrow-link:hover img {
+  transform: translateX(0.3em);
+}
+.arrow-link:hover span {
+  background-size: 100% 0.06em;
+}
+
+.hover-line {
+  background: linear-gradient(currentColor, currentColor) 100% 100% / 0 0.05em no-repeat;
+  transition: background-size 0.5s var(--ease);
+}
+.hover-line:hover {
+  background-position: 0 100%;
+  background-size: 100% 0.05em;
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25em;
+  border: 0;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease);
+  z-index: -1;
+}
+.btn img {
+  width: 1em;
+  height: 1em;
+  transition: transform 0.5s var(--ease);
+}
+.btn:hover::before {
+  transform: none;
+}
+.btn:hover img {
+  transform: translateX(0.3em);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+
+.field {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: #fff;
+  color: #000;
+  outline: 0;
+  box-shadow: inset 0 0 0 0 var(--blue);
+  transition: box-shadow 0.4s var(--ease);
+}
+.field:focus {
+  box-shadow: inset 0 -0.4rem 0 0 var(--blue);
+}
+.field::placeholder {
+  color: #808080;
+  opacity: 1;
+}
+.field-area {
+  resize: none;
+}
+.form-note {
+  color: #fff;
+  text-align: center;
+}
+
+.hero-socials,
+.footer-socials {
+  position: relative;
+}
+.hero-socials img,
+.footer-socials img {
+  width: 100%;
+  height: 100%;
+}
+.hero-socials a,
+.footer-socials a {
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  transition: box-shadow 0.3s, transform 0.3s var(--ease);
+}
+.hero-socials a:hover {
+  box-shadow: 0 0 0 0.4rem rgba(13, 139, 216, 0.35);
+}
+.footer-socials a:hover {
+  box-shadow: 0 0 0 0.4rem rgba(255, 255, 255, 0.35);
+}
+.hero-socials a:nth-of-type(1) { left: 0; }
+.hero-socials a:nth-of-type(2) { left: 4.2rem; }
+.hero-socials a:nth-of-type(3) { left: 8.4rem; }
+.hero-socials a:nth-of-type(4) { left: 12.6rem; }
+.footer-socials a:nth-of-type(1) { top: 0; }
+.footer-socials a:nth-of-type(2) { top: 4rem; }
+.footer-socials a:nth-of-type(3) { top: 8rem; }
+.footer-socials a:nth-of-type(4) { top: 12rem; }
+
+.hero-logo img,
+.menu-logo img,
+.footer-logo img,
+.clients img {
+  /* Logo bitmaps are stored square in Figma and stretched into their boxes */
+  width: 100%;
+  height: 100%;
+}
+.hero-logo a,
+.menu-logo {
+  display: block;
+}
+.hero-logo a {
+  width: 100%;
+  height: 100%;
+}
+
+.svc-line {
+  flex: none;
+  height: 0.2rem;
+  background: var(--blue);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease);
+}
+.svc:hover .svc-line {
+  transform: scaleX(1.35);
+}
+.svc:hover .pic-inner {
+  transform: scale(1.07);
+}
+.svc-head {
+  display: flex;
+  align-items: center;
+}
+.svc h3 {
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.trusted-mark {
+  position: relative;
+  display: inline-block;
+}
+.scribble {
+  position: absolute;
+  left: -0.22em;
+  top: -0.81em;
+  width: calc(100% + 0.16em);
+  height: 3.29em;
+  pointer-events: none;
+}
+.clients li {
+  transition: opacity 0.3s;
+}
+.clients:hover li:not(:hover) {
+  opacity: 0.45 !important;
+}
+
+.w-block h3 {
+  font-weight: 400;
+  color: var(--blue);
+}
+.collage .pic-wrap {
+  position: absolute;
+}
+.w-ice { left: 19.96%; top: 0; width: 62.13%; height: 71.82%; }
+.w-dune { left: 70.76%; top: 8.31%; width: 29.24%; height: 38.02%; }
+.w-roofs { left: 0; top: 55.8%; width: 33.99%; height: 44.2%; }
+
+/* Testimonial ribbons — everything in em so the stack scales as one piece (1em = 150 design px) */
+.bands {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-weight: 700;
+  color: #000;
+  line-height: 1;
+  height: 7.4em;
+}
+.band {
+  position: absolute;
+  width: 13.7645em;
+  height: 1.3533em;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+/* The four long ribbons are 18em wide (wider than the 13.76em in Figma, same centres)
+   so both ends always run off the screen instead of stopping short inside it. */
+.band-1,
+.band-2,
+.band-3,
+.band-4 {
+  width: 18em;
+}
+.band-1 { left: -1.798em; top: 0.23em; transform: rotate(16.81deg); }
+.band-2 { left: -2.183em; top: 1.088em; transform: rotate(-0.69deg); }
+.band-3 { left: -2.267em; top: 2.922em; transform: rotate(7.42deg); }
+.band-4 { left: -1.778em; top: 4.483em; transform: rotate(-11.51deg); }
+.band-5 { left: 3.425em; top: 4.149em; width: 6.629em; transform: rotate(1.15deg); justify-content: center; }
+.band-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.band-half {
+  display: flex;
+  flex: none;
+}
+.band-item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.band-item i {
+  font-style: normal;
+  color: var(--blue);
+  margin: 0 0.3em;
+}
+.band-shout {
+  display: block;
+  white-space: nowrap;
+  transition: transform 0.5s var(--ease);
+}
+.band-5:hover .band-shout {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+/* News carousel — em based (1em = 100 design px) */
+.news-stage {
+  cursor: grab;
+  touch-action: pan-y;
+  height: 6.21em;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.news-stage:active {
+  cursor: grabbing;
+}
+.news-track {
+  display: flex;
+  align-items: center;
+  gap: 0.87em;
+  width: max-content;
+  height: 100%;
+  margin-left: calc(50% - 18.36em);
+}
+.news-item {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+}
+.news-item img {
+  pointer-events: none;
+}
+.news-lg { width: 11.04em; height: 6.21em; }
+.news-lg2 { width: 9.32em; height: 6.21em; }
+.news-sm { width: 3.29em; height: 4.69em; }
+.news-sm2 { width: 3.13em; height: 4.69em; }
+.news-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.news-title {
+  position: absolute;
+  font-size: 2.5em;
+  left: calc(50% - 1.456em);
+  top: 0.744em;
+}
+.news-more {
+  position: absolute;
+  left: calc(50% + 1.5em);
+  top: 4.52em;
+  pointer-events: auto;
+}
+.news-more .arrow-link {
+  font-size: 0.64em;
+  text-shadow: 0 0.06em 0.06em rgba(0, 0, 0, 0.25);
+}
+.drag-cursor {
+  position: absolute;
+  font-size: 0.24em;
+  font-weight: 700;
+  left: calc(50% + 20.21em);
+  top: 8.96em;
+  width: 5.667em;
+  height: 5.667em;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.proposal-bar {
+  display: block;
+  background: #fff;
+  transform-origin: top;
+}
+.proposal-title {
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+.proposal-send {
+  display: flex;
+  justify-content: center;
+}
+
+.newsletter {
+  background: #fff;
+}
+.newsletter-form {
+  display: flex;
+}
+.newsletter-form input {
+  border: 0.1rem solid #000;
+  background: transparent;
+  color: #000;
+  font-weight: 300;
+  outline: 0;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.newsletter-form input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 0.1rem var(--blue);
+}
+.newsletter-form input::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+}
+
+.footer {
+  background: var(--blue);
+  color: #fff;
+}
+.footer-logo {
+  display: block;
+  filter: drop-shadow(0 0.2rem 0.4rem rgba(0, 0, 0, 0.25));
+}
+.footer h3 {
+  font-weight: 400;
+}
+.footer-col a {
+  display: inline-block;
+  font-weight: 200;
+}
+.footer-phone a {
+  color: #e8e9eb;
+}
+
+/* ---------- Loader ---------- */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+.loader-blue,
+.loader-white {
+  position: absolute;
+  inset: 0;
+}
+.loader-blue {
+  background: var(--blue);
+}
+.loader-white {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+}
+.loader-name {
+  font-size: max(1.6rem, 12px);
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+.loader-count {
+  font-size: max(16rem, 96px);
+  font-weight: 700;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+.loader-line {
+  width: max(24rem, 160px);
+  height: 2px;
+  background: rgba(0, 0, 0, 0.1);
+}
+.loader-line span {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  transform-origin: left;
+}
+
+/* ---------- Scroll progress ---------- */
+
+.progress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100vh;
+  z-index: 80;
+  pointer-events: none;
+}
+.progress-bar {
+  height: 100%;
+  background: var(--blue);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+/* ---------- Menu ---------- */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+.menu-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+.menu-panel {
+  /* --k is one design unit, shrunk if the viewport is shorter than the 1080px-tall frame */
+  --k: min(1rem, calc(100dvh / 108));
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 125rem;
+  max-width: 100%;
+  height: 100dvh;
+  background: var(--blue);
+  color: #fff;
+  overflow: hidden;
+}
+.menu-close {
+  position: absolute;
+  left: calc(7.9 * var(--k));
+  top: calc(7.5 * var(--k));
+  width: calc(4.3 * var(--k));
+  height: calc(4.3 * var(--k));
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.menu-close img {
+  width: 100%;
+  height: 100%;
+}
+.menu-logo {
+  position: absolute;
+  left: calc(27.3 * var(--k));
+  top: calc(5.6 * var(--k));
+  width: calc(25 * var(--k));
+  height: calc(7.927 * var(--k));
+  filter: drop-shadow(0 calc(0.4 * var(--k)) calc(0.4 * var(--k)) rgba(0, 0, 0, 0.25));
+}
+.menu-links {
+  position: absolute;
+  left: calc(27.3 * var(--k));
+  top: calc(25.7 * var(--k));
+  font-size: calc(6.4 * var(--k));
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.menu-links li {
+  height: 1.3125em;
+}
+.menu-links a {
+  display: inline-block;
+  transition: letter-spacing 0.5s var(--ease), opacity 0.3s;
+}
+.menu-links:hover a {
+  opacity: 0.55;
+}
+.menu-links a:hover {
+  opacity: 1;
+  letter-spacing: 0.16em;
+}
+.menu-contact {
+  position: absolute;
+  left: calc(27.3 * var(--k));
+  top: calc(84.8 * var(--k));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-style: normal;
+}
+.menu-contact strong {
+  font-size: calc(2 * var(--k));
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  margin-bottom: calc(1 * var(--k));
+}
+.menu-contact a,
+.menu-contact span {
+  font-size: calc(2.4 * var(--k));
+  line-height: 1.25;
+  font-weight: 200;
+  letter-spacing: 0.15em;
+  color: #e8e9eb;
+  margin-bottom: calc(1 * var(--k));
+}
+
+.menu-fab {
+  position: fixed;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: var(--blue);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), background 0.3s;
+}
+.menu-fab:hover {
+  background: #000;
+}
+
+/* ==========================================================================
+   DESKTOP — absolute layout taken straight from the Figma frame
+   ========================================================================== */
+@media (min-width: 901px) {
+  .menu-fab {
+    left: 3rem;
+    top: 3rem;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.6);
+    pointer-events: none;
+    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.2);
+  }
+  .menu-fab.is-visible {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .menu-fab img {
+    width: 3.8rem;
+    height: 1.43rem;
+  }
+
+  /* Hero — 1920 x 1080 */
+  .hero {
+    position: relative;
+    height: 108rem;
+    z-index: 2;
+  }
+  .hero-media {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 125rem;
+    height: 108rem;
+    overflow: hidden;
+  }
+  .hero-media-zoom,
+  .hero-media-inner {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-rail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20rem;
+    height: 108rem;
+    padding: 0;
+    border: 0;
+    background: var(--blue);
+    z-index: 2;
+  }
+  .hero-rail img {
+    position: absolute;
+    left: 7.1rem;
+    top: 8.5rem;
+    width: 5.7rem;
+    height: 2.15rem;
+    transition: transform 0.5s var(--ease);
+  }
+  .hero-rail:hover img {
+    transform: scaleX(1.18);
+  }
+  .hero-logo {
+    position: absolute;
+    left: 33.4rem;
+    top: 5.6rem;
+    width: 25rem;
+    height: 7.927rem;
+    z-index: 2;
+    filter: drop-shadow(0 0.4rem 0.4rem rgba(0, 0, 0, 0.25));
+  }
+  .hero-copy {
+    display: contents;
+    color: #fff;
+  }
+  .hero-copy h1 {
+    position: absolute;
+    left: 33.4rem;
+    top: 66.1rem;
+    width: 44rem;
+    z-index: 2;
+    color: #fff;
+    font-size: 3.6rem;
+    font-weight: 700;
+    letter-spacing: 0.36rem;
+  }
+  .hero-text {
+    position: absolute;
+    left: 33.4rem;
+    top: 77.6rem;
+    width: 47.9rem;
+    z-index: 2;
+    color: #fff;
+  }
+  .hero-text p {
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    opacity: 0.7;
+  }
+  .hero-cta {
+    position: absolute;
+    left: 33.4rem;
+    top: 94.8rem;
+    z-index: 2;
+    color: #fff;
+    font-size: 2rem;
+  }
+  .hero-panel {
+    position: absolute;
+    left: 125rem;
+    top: 0;
+    width: 67rem;
+    height: 108rem;
+    background: #fff;
+  }
+  .hero-socials {
+    position: absolute;
+    left: 25.9rem;
+    top: 9.58rem;
+    width: 15.1rem;
+    height: 2.5rem;
+  }
+  .hero-tagline {
+    position: absolute;
+    left: 9.6rem;
+    top: 50.3rem;
+    width: 38.4rem;
+    height: 39rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 12.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .hero-tagline .word-mask {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+  .hero-tagline .word {
+    display: block;
+  }
+  .hero-scroll {
+    position: absolute;
+    left: 163rem;
+    top: 98rem;
+    width: 20rem;
+    height: 28.9646rem;
+    z-index: 3;
+  }
+  .hero-scroll img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s var(--ease);
+  }
+  .hero-scroll:hover img {
+    transform: translateY(1.2rem);
+  }
+
+  /* Services — 1882 tall */
+  .services {
+    position: relative;
+    height: 188rem;
+    overflow: hidden;
+    color: #fff;
+  }
+  .services-title {
+    position: absolute;
+    right: 107.9rem;
+    top: 18.8rem;
+    font-size: 9.6rem;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .services-sub {
+    position: absolute;
+    left: 89.8rem;
+    top: 26.7rem;
+    width: 54.1rem;
+  }
+  .services-sub p {
+    font-size: 2.4rem;
+    letter-spacing: 0.24rem;
+  }
+  .svc {
+    position: absolute;
+    top: 54.2rem;
+    width: 35rem;
+  }
+  .svc-1 { left: 29rem; }
+  .svc-2 { left: 78.5rem; }
+  .svc-3 { left: 128rem; }
+  .svc-img {
+    height: 50rem;
+  }
+  .svc-head {
+    margin-top: 4rem;
+  }
+  .svc-line {
+    width: 7rem;
+  }
+  .svc h3 {
+    font-size: 3.2rem;
+    margin-left: 1.3rem;
+  }
+  .svc p {
+    margin: 1.6rem 0 0 8.3rem;
+    width: 26.7rem;
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    opacity: 0.7;
+  }
+  .trusted {
+    position: absolute;
+    left: 23.4rem;
+    top: 132.4rem;
+    font-size: 6.4rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .clients li {
+    position: absolute;
+  }
+  .c-perfumery { left: 20.9rem; top: 156.38rem; width: 30.23rem; height: 9.77rem; }
+  .c-omni { left: 65.65rem; top: 156.38rem; width: 29.17rem; height: 10.03rem; }
+  .c-kush { left: 109.34rem; top: 151.5rem; width: 19.8rem; height: 19.8rem; }
+  .c-nepal { left: 143.66rem; top: 157.44rem; width: 27.46rem; height: 7.79rem; }
+
+  /* Work — 4673 tall */
+  .work {
+    position: relative;
+    height: 467.3rem;
+  }
+  .work-title {
+    position: absolute;
+    left: 24.8rem;
+    top: 21.5rem;
+    font-size: 23rem;
+  }
+  .work > .pic-wrap {
+    position: absolute;
+  }
+  .w-car { left: 21.6rem; top: 49.4rem; width: 78.2rem; height: 117.2rem; }
+  .w-alley { left: 117.5rem; top: 143.9rem; width: 52.3rem; height: 78.4rem; }
+  .w-block {
+    position: absolute;
+  }
+  .w-block h3 {
+    font-size: 4.8rem;
+  }
+  .w-block p {
+    font-size: 3.2rem;
+    letter-spacing: 0.32rem;
+  }
+  .w-b1 {
+    left: 117.5rem;
+    top: 58.7rem;
+    width: 47.9rem;
+    height: 41.4rem;
+    border-left: 0.2rem solid var(--blue);
+    padding-left: 2.5rem;
+  }
+  .w-b1 p {
+    margin-top: 4.2rem;
+  }
+  .w-b2 {
+    left: 47.9rem;
+    top: 182.2rem;
+    width: 52rem;
+    height: 36.5rem;
+    border-right: 0.2rem solid var(--blue);
+    padding-right: 2.4rem;
+    text-align: right;
+  }
+  .w-b2 p {
+    margin-top: 2.4rem;
+  }
+  .collage {
+    position: absolute;
+    left: 27.6rem;
+    top: 252.6rem;
+    width: 136.8rem;
+    height: 157.7rem;
+  }
+  .view-all {
+    position: absolute;
+    left: 96rem;
+    top: 369.9rem;
+    z-index: 2;
+  }
+  .view-all .arrow-link {
+    font-size: 6.4rem;
+  }
+  .quote {
+    position: absolute;
+    left: 30.5rem;
+    top: 432.4rem;
+    width: 130.9rem;
+    font-size: 6.4rem;
+    letter-spacing: 0.64rem;
+  }
+
+  /* Reviews — 1997 tall */
+  .reviews {
+    position: relative;
+    height: 199.7rem;
+    overflow: hidden;
+    color: #fff;
+  }
+  /* Single centred line (the Figma frame has it on two lines with a small caption beside it) */
+  .reviews-title {
+    position: absolute;
+    left: 0;
+    top: 21.1rem;
+    width: 100%;
+    font-size: 9.6rem;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .bands {
+    position: absolute;
+    left: 0;
+    top: 60rem;
+    width: 100%;
+    font-size: 15rem;
+  }
+  .reviews-end {
+    position: absolute;
+    left: 0;
+    top: 174.3rem;
+    width: 100%;
+    font-size: 6.4rem;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* News — 1063 tall */
+  .news {
+    position: relative;
+    height: 106.3rem;
+    overflow: hidden;
+  }
+  .news-stage {
+    position: absolute;
+    left: 0;
+    top: 22.1rem;
+    width: 100%;
+    font-size: 10rem;
+  }
+
+  /* Proposal — 1376 tall */
+  .proposal {
+    position: relative;
+    height: 137.6rem;
+  }
+  .proposal-bar {
+    position: absolute;
+    left: 95.3rem;
+    top: 0;
+    width: 1.5rem;
+    height: 15rem;
+  }
+  .proposal-title {
+    position: absolute;
+    left: 0;
+    top: 20.1rem;
+    width: 100%;
+    font-size: 9.6rem;
+  }
+  .proposal-form {
+    position: absolute;
+    left: 43.4rem;
+    top: 40rem;
+    width: 105.1rem;
+  }
+  .proposal-form > div {
+    margin-bottom: 5.1rem;
+  }
+  .field {
+    height: 10rem;
+    padding: 0 4.6rem;
+    font-size: 3.6rem;
+    font-weight: 100;
+  }
+  .field-area {
+    height: 34.1rem;
+    padding-top: 4.1rem;
+  }
+  .proposal-send .btn,
+  .newsletter-form .btn {
+    width: 17.7rem;
+    height: 6.1rem;
+    font-size: 2rem;
+  }
+  .form-note {
+    font-size: 2rem;
+    margin-top: -2.4rem;
+  }
+
+  /* Newsletter — 800 tall */
+  .newsletter {
+    position: relative;
+    height: 80rem;
+  }
+  .newsletter-eyebrow {
+    position: absolute;
+    left: 0;
+    top: 20.4rem;
+    width: 100%;
+    text-align: center;
+  }
+  .newsletter-eyebrow p {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 0.6rem;
+  }
+  .newsletter-title {
+    position: absolute;
+    left: 0;
+    top: 28.3rem;
+    width: 100%;
+    text-align: center;
+    font-size: 9.6rem;
+    font-weight: 400;
+    letter-spacing: 0.96rem;
+  }
+  .newsletter-form-wrap {
+    position: absolute;
+    left: 64.6rem;
+    top: 53.4rem;
+  }
+  .newsletter-form {
+    gap: 0.7rem;
+  }
+  .newsletter-form input {
+    width: 44.6rem;
+    height: 6.1rem;
+    padding: 0 2.6rem;
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+  }
+
+  /* Footer — 800 tall */
+  .footer {
+    position: relative;
+    height: 80rem;
+  }
+  .footer-logo {
+    position: absolute;
+    left: 83.5rem;
+    top: 6rem;
+    width: 25rem;
+    height: 7.927rem;
+  }
+  .footer-socials {
+    position: absolute;
+    left: 9rem;
+    top: 32.8rem;
+    width: 2.5rem;
+    height: 14.5rem;
+  }
+  .footer-col {
+    position: absolute;
+    top: 29.7rem;
+  }
+  .footer-email { left: 45.6rem; }
+  .footer-phone { left: 113.4rem; }
+  .footer h3 {
+    font-size: 6.4rem;
+  }
+  .footer-col a {
+    margin-top: 4.7rem;
+    font-size: 4rem;
+  }
+  .footer-phone a {
+    letter-spacing: 0.6rem;
+  }
+  .footer-links a {
+    position: absolute;
+    top: 64.2rem;
+    font-size: 4rem;
+    white-space: nowrap;
+  }
+  .f-privacy { left: 31rem; }
+  .f-terms { left: 78.4rem; }
+  .f-about { left: 135.1rem; }
+}
+
+/* ==========================================================================
+   MOBILE / TABLET — single column, 1rem = 10px on a 390px phone
+   ========================================================================== */
+@media (max-width: 900px) {
+  html {
+    font-size: min(calc(100vw / 39), 15px);
+  }
+
+  .progress {
+    width: 3px;
+  }
+
+  .menu-fab {
+    left: 1.6rem;
+    top: 1.6rem;
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+  .menu-fab img {
+    width: 2.6rem;
+    height: 0.98rem;
+  }
+
+  .menu-panel {
+    --k: min(0.62rem, calc(100dvh / 108));
+    width: 100%;
+  }
+  .menu-close {
+    left: 2.4rem;
+    top: 2.4rem;
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+  .menu-logo,
+  .menu-links,
+  .menu-contact {
+    left: 2.4rem;
+  }
+  .menu-logo {
+    top: calc(12 * var(--k));
+  }
+
+  /* Hero */
+  .hero {
+    --media-h: clamp(52rem, 100svh, 80rem);
+    position: relative;
+  }
+  .hero-media {
+    position: relative;
+    height: var(--media-h);
+    overflow: hidden;
+  }
+  .hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 10, 25, 0.25) 0%, rgba(0, 10, 25, 0) 30%, rgba(0, 10, 25, 0.75) 100%);
+  }
+  .hero-media-zoom,
+  .hero-media-inner {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-media img {
+    object-fit: cover;
+    object-position: 62% 50%;
+  }
+  .hero-rail,
+  .hero-scroll {
+    display: none;
+  }
+  .hero-logo {
+    position: absolute;
+    left: 7.6rem;
+    top: 1.9rem;
+    width: 13.2rem;
+    height: 4.185rem;
+    z-index: 2;
+    filter: drop-shadow(0 0.2rem 0.3rem rgba(0, 0, 0, 0.3));
+  }
+  .hero-copy {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: var(--media-h);
+    padding: 0 2.4rem 4.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #fff;
+    z-index: 2;
+  }
+  .hero-copy h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    line-height: 1.12;
+  }
+  .hero-text {
+    margin-top: 1.8rem;
+  }
+  .hero-text p {
+    font-size: 1.5rem;
+    letter-spacing: 0.08rem;
+    line-height: 1.4;
+    opacity: 0.8;
+  }
+  .hero-cta {
+    margin-top: 2.8rem;
+    font-size: 1.7rem;
+  }
+  .hero-panel {
+    position: relative;
+    background: #fff;
+    padding: 4.4rem 2.4rem 5.2rem;
+  }
+  .hero-socials {
+    width: 15.1rem;
+    height: 2.5rem;
+    margin-bottom: 3.6rem;
+  }
+  .hero-tagline {
+    display: flex;
+    flex-direction: column;
+    font-size: 7.6rem;
+    font-weight: 600;
+  }
+  .hero-tagline .word-mask {
+    display: block;
+  }
+
+  /* Services */
+  .services {
+    position: relative;
+    padding: 7.2rem 2.4rem 7.2rem;
+    overflow: hidden;
+    color: #fff;
+  }
+  .services > *:not(.dark-bg),
+  .reviews > *:not(.dark-bg) {
+    position: relative;
+  }
+  .services-title {
+    font-size: 5.6rem;
+    font-weight: 600;
+  }
+  .services-sub {
+    margin-top: 2rem;
+  }
+  .services-sub p {
+    font-size: 1.6rem;
+    letter-spacing: 0.1rem;
+    line-height: 1.4;
+  }
+  .svc-list {
+    margin-top: 4.8rem;
+    display: grid;
+    gap: 4.8rem;
+  }
+  .svc-img {
+    aspect-ratio: 350 / 420;
+  }
+  .svc-head {
+    margin-top: 2.2rem;
+  }
+  .svc-line {
+    width: 4rem;
+  }
+  .svc h3 {
+    font-size: 2.4rem;
+    margin-left: 1.2rem;
+  }
+  .svc p {
+    margin: 1.2rem 0 0 5.2rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.08rem;
+    line-height: 1.4;
+    opacity: 0.7;
+  }
+  .trusted {
+    margin-top: 8rem;
+    font-size: 3.2rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .clients {
+    margin-top: 5.6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.2rem 2rem;
+    align-items: center;
+    justify-items: center;
+  }
+  .c-perfumery { width: 15rem; aspect-ratio: 302.28 / 97.68; }
+  .c-omni { width: 14.5rem; aspect-ratio: 291.72 / 100.32; }
+  .c-kush { width: 10.5rem; aspect-ratio: 1; }
+  .c-nepal { width: 14rem; aspect-ratio: 274.56 / 77.88; }
+
+  /* Work */
+  .work {
+    position: relative;
+    padding: 8rem 2.4rem;
+    overflow: hidden;
+  }
+  .work-title {
+    font-size: 10rem;
+    margin-bottom: 3.2rem;
+  }
+  .w-car {
+    aspect-ratio: 782 / 1172;
+  }
+  .w-block {
+    margin-top: 4rem;
+  }
+  .w-block h3 {
+    font-size: 3.2rem;
+  }
+  .w-block p {
+    margin-top: 1.6rem;
+    font-size: 1.8rem;
+    letter-spacing: 0.1rem;
+    line-height: 1.35;
+  }
+  .w-b1 {
+    border-left: 0.2rem solid var(--blue);
+    padding-left: 1.6rem;
+  }
+  .w-b2 {
+    border-right: 0.2rem solid var(--blue);
+    padding-right: 1.6rem;
+    text-align: right;
+  }
+  .w-alley {
+    width: 72%;
+    margin: 5.6rem 0 0 auto;
+    aspect-ratio: 523 / 784;
+  }
+  .collage {
+    position: relative;
+    margin-top: 7.2rem;
+    aspect-ratio: 1368 / 1577;
+  }
+  .view-all {
+    margin-top: 3.2rem;
+    text-align: center;
+  }
+  .view-all .arrow-link {
+    font-size: 3.2rem;
+  }
+  .quote {
+    margin-top: 8rem;
+    font-size: 2.6rem;
+    letter-spacing: 0.14rem;
+    line-height: 1.25;
+  }
+
+  /* Reviews */
+  .reviews {
+    position: relative;
+    padding: 7.2rem 0;
+    overflow: hidden;
+    color: #fff;
+  }
+  .reviews-title {
+    padding: 0 2.4rem;
+    font-size: 3.3rem;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .bands {
+    /* the first ribbon is tilted, so its left end rises well above the stack */
+    margin-top: 9rem;
+    font-size: 4.6rem;
+  }
+  .band-5 {
+    left: calc(50% - 3.3145em);
+  }
+  .reviews-end {
+    margin-top: 3.2rem;
+    padding: 0 2.4rem;
+    font-size: 2.6rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  /* News */
+  .news {
+    position: relative;
+    padding-top: 7.2rem;
+    overflow: hidden;
+  }
+  .news-stage {
+    position: relative;
+    font-size: 4.6rem;
+  }
+  .news-more {
+    left: auto;
+    right: 2.4rem;
+  }
+  .drag-cursor {
+    display: none;
+  }
+
+  /* Proposal */
+  .proposal {
+    position: relative;
+    padding: 8rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .proposal-bar {
+    width: 0.6rem;
+    height: 7rem;
+  }
+  .proposal-title {
+    margin: 2.4rem 0 3.2rem;
+    font-size: 3.6rem;
+    line-height: 1.1;
+  }
+  .proposal-form {
+    width: 100%;
+  }
+  .proposal-form > div {
+    margin-bottom: 1.6rem;
+  }
+  .field {
+    height: 5.6rem;
+    padding: 0 2rem;
+    font-size: max(1.8rem, 16px);
+    font-weight: 300;
+  }
+  .field-area {
+    height: 18rem;
+    padding-top: 1.8rem;
+  }
+  .proposal-send {
+    margin-top: 2.4rem;
+  }
+  .proposal-send .btn {
+    width: 14rem;
+    height: 5rem;
+    font-size: 1.6rem;
+  }
+  .form-note {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    min-height: 2rem;
+  }
+
+  /* Newsletter */
+  .newsletter {
+    padding: 8rem 2.4rem;
+    text-align: center;
+  }
+  .newsletter-eyebrow p {
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 0.5rem;
+  }
+  .newsletter-title {
+    margin: 2.4rem 0 3.6rem;
+    font-size: 3.6rem;
+    font-weight: 400;
+    letter-spacing: 0.2rem;
+    line-height: 1.1;
+  }
+  .newsletter-form {
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 44rem;
+    margin: 0 auto;
+  }
+  .newsletter-form input {
+    width: 100%;
+    height: 5.2rem;
+    padding: 0 2rem;
+    font-size: max(1.6rem, 16px);
+    letter-spacing: 0.1rem;
+  }
+  .newsletter-form .btn {
+    width: 100%;
+    height: 5.2rem;
+    font-size: 1.6rem;
+  }
+
+  /* Footer */
+  .footer {
+    position: relative;
+    padding: 5.6rem 2.4rem 4.8rem;
+  }
+  .footer-logo {
+    width: 16rem;
+    height: 5.073rem;
+  }
+  .footer-socials {
+    position: absolute;
+    right: 2.4rem;
+    top: 5.6rem;
+    width: 2.5rem;
+    height: 14.5rem;
+  }
+  .footer-col {
+    margin-top: 4.4rem;
+  }
+  .footer h3 {
+    font-size: 2.8rem;
+  }
+  .footer-col a {
+    margin-top: 1.2rem;
+    font-size: 1.9rem;
+  }
+  .footer-phone a {
+    letter-spacing: 0.2rem;
+  }
+  .footer-links {
+    margin-top: 5.6rem;
+    padding-top: 2.8rem;
+    border-top: 0.1rem solid rgba(255, 255, 255, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.6rem;
+    font-size: 1.8rem;
+  }
+}
+
+/* Tablet: services side by side */
+@media (min-width: 600px) and (max-width: 900px) {
+  .svc-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.4rem;
+  }
+  .svc p {
+    margin-left: 0;
+  }
+  .clients {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .w-car,
+  .collage {
+    max-width: 52rem;
+  }
+  .collage,
+  .proposal-form {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .proposal-form {
+    max-width: 60rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

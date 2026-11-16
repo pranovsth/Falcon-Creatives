@@ -1,0 +1,1244 @@
+/* ==========================================================================
+   Inner pages: Services, About, Portfolio, Contact, Talent
+   Same unit system as globals.css (desktop: 1rem = 10 Figma px).
+   ========================================================================== */
+
+.page {
+  position: relative;
+}
+/* Services/About use 90% black over the page blue; the rest are pure black */
+.page-dark {
+  background: #111315;
+}
+.page-black {
+  background: #000;
+}
+.news,
+.proposal,
+.approach,
+.team,
+.pf-more {
+  background: var(--sky);
+}
+
+/* Blue curtain on every navigation */
+.page-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--blue);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+/* ---------- Shared ---------- */
+
+.phead,
+.ct {
+  color: #fff;
+}
+.phead-logo a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.phead-logo img {
+  width: 100%;
+  height: 100%;
+}
+.phead-logo {
+  filter: drop-shadow(0 0.4rem 0.4rem rgba(0, 0, 0, 0.25));
+}
+.phead-kicker,
+.ct-kicker {
+  font-weight: 200;
+}
+.phead-title,
+.ct-title {
+  font-weight: 800;
+  text-shadow: 0 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
+}
+.phead-media > .pic-wrap {
+  position: absolute;
+  inset: 0;
+}
+.play-ring {
+  width: 100%;
+  height: 100%;
+  animation: play-pulse 2.6s ease-in-out infinite;
+}
+.play-tri {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-42%, -50%) rotate(90deg);
+}
+@keyframes play-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.7;
+  }
+}
+.phead-script,
+.cg-note {
+  font-family: var(--font-kristi), "Segoe Script", cursive;
+  font-style: italic;
+  color: #fff;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.sec-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+}
+.mega-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  color: #fff;
+}
+
+/* Services: what we can do */
+.cd-text h3 {
+  font-weight: 400;
+  color: var(--blue);
+}
+.cd-text li {
+  position: relative;
+}
+.cd-text li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+/* Services: approach */
+.ap-card {
+  position: relative;
+}
+.ap-num {
+  position: absolute;
+  right: 0;
+  color: var(--blue);
+  line-height: 1;
+  pointer-events: none;
+}
+.ap-card h3 {
+  position: relative;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #fff;
+}
+.ap-card p {
+  position: relative;
+  text-align: justify;
+}
+
+/* Collage (About, Talent) — 1em = 100 design px */
+.cg {
+  position: relative;
+  width: 16.06em;
+  height: 18.47em;
+}
+.cg .pic-wrap {
+  position: absolute;
+}
+.cg-a { left: 9.65em; top: 12.04em; width: 6.41em; height: 4.27em; }
+.cg-b { left: 6.18em; top: 0; width: 8.57em; height: 12.85em; }
+.cg-c { left: 0; top: 0.61em; width: 9.04em; height: 5.09em; }
+.cg-d { left: 0.94em; top: 9.04em; width: 7.15em; height: 4.76em; }
+.cg-e { left: 5.26em; top: 15em; width: 5.21em; height: 3.47em; }
+.cg-note {
+  position: absolute;
+  z-index: 3;
+  font-size: 0.64em;
+}
+.cg-note span {
+  display: block;
+}
+.cg-arrow {
+  position: absolute;
+  z-index: 3;
+  width: 0.303em;
+  height: 0.705em;
+}
+
+/* About: team */
+.team-card {
+  background: #d9d9d9;
+  color: #000;
+  transition: transform 0.6s var(--ease), background 0.4s;
+}
+.team-card:hover {
+  transform: translateY(-1rem);
+  background: #e6e6e6;
+}
+.team-card h3 {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.team-role {
+  font-weight: 200;
+}
+.team-card p {
+  text-align: justify;
+}
+
+/* Portfolio */
+.pf {
+  position: relative;
+  color: #fff;
+}
+.pf-filter h2 {
+  font-weight: 500;
+}
+.pf-filter div {
+  display: flex;
+}
+.pf-filter button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  font-weight: 300;
+  opacity: 0.4;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}
+.pf-filter button:hover {
+  opacity: 0.8;
+}
+.pf-filter button.is-active {
+  opacity: 1;
+}
+.pf-cols {
+  display: flex;
+}
+.pf-item h3 {
+  font-weight: 500;
+  color: var(--blue);
+}
+.pf-item p {
+  font-weight: 300;
+  opacity: 0.5;
+}
+.pf-img {
+  transition: filter 0.5s;
+}
+.pf-item:hover .pf-img {
+  filter: brightness(1.15);
+}
+.mosaic {
+  position: relative;
+  width: 13.79em;
+  height: 12.23em;
+}
+.mosaic .pic-wrap {
+  position: absolute;
+}
+.mo-a { left: 9.336em; top: 8.974em; width: 2.279em; height: 3.255em; }
+.mo-b { left: 7.577em; top: 8.974em; width: 1.399em; height: 1.999em; }
+.mo-c { left: 4.13em; top: 0; width: 2.175em; height: 3.107em; }
+.mo-d { left: 6.557em; top: 1.184em; width: 2.887em; height: 1.923em; }
+.mo-e { left: 2.867em; top: 3.48em; width: 7.677em; height: 5.122em; }
+.mo-f { left: 0.73em; top: 5.59em; width: 1.859em; height: 2.787em; }
+.mo-g { left: 10.815em; top: 4.844em; width: 1.599em; height: 2.397em; }
+.mo-h { left: 0; top: 8.97em; width: 3.335em; height: 1.875em; }
+.mo-i { left: 10.815em; top: 2.489em; width: 2.975em; height: 1.983em; }
+
+/* Contact */
+.ct-form {
+  display: grid;
+}
+.ct-select {
+  position: relative;
+  display: block;
+}
+.ct-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+.ct-select select:invalid {
+  color: #808080;
+}
+.ct-select img {
+  position: absolute;
+  pointer-events: none;
+}
+.ct-area {
+  grid-column: 1 / -1;
+  resize: none;
+}
+.ct-send {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ct-side {
+  overflow: hidden;
+}
+.ct-side-img img,
+.ct-map > img:first-child {
+  object-fit: cover;
+}
+.ct-info {
+  background: #f2f2f2;
+  color: #000;
+}
+.ct-city {
+  display: flex;
+  align-items: center;
+}
+.ct-line {
+  flex: none;
+  background: var(--blue);
+}
+.ct-city h2 {
+  font-weight: 500;
+}
+.ct-lines {
+  opacity: 0.7;
+}
+.ct-map {
+  display: block;
+  overflow: hidden;
+}
+.ct-map > img:first-child {
+  transition: transform 1.2s var(--ease);
+}
+.ct-map:hover > img:first-child {
+  transform: scale(1.05);
+}
+.ct-pin {
+  position: absolute;
+  left: 40.34%;
+  top: 39.85%;
+  border-radius: 50%;
+  animation: pin-pulse 2s ease-out infinite;
+}
+@keyframes pin-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(13, 139, 216, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 2.4rem rgba(13, 139, 216, 0);
+  }
+}
+.ct-join {
+  background: #000;
+}
+.ct-join p {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.21;
+}
+.ct-join-link {
+  font-family: var(--font-inter), Arial, sans-serif;
+  line-height: 1.21;
+  border-bottom: 0.2rem solid #fff;
+  transition: color 0.3s, border-color 0.3s;
+}
+.ct-join-link:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+/* ==========================================================================
+   DESKTOP
+   ========================================================================== */
+@media (min-width: 901px) {
+  /* Page head */
+  .phead {
+    position: relative;
+    height: calc(var(--img-top, 98.2rem) + 108rem);
+  }
+  .phead-services {
+    --img-top: 100.3rem;
+    --h-top: 49.7rem;
+  }
+  .phead-plain {
+    height: 99.9rem;
+  }
+  .phead-portfolio {
+    --h-top: 36rem;
+  }
+  .phead-logo {
+    position: absolute;
+    left: 171rem;
+    top: 5.6rem;
+    width: 15rem;
+    height: 4.756rem;
+    z-index: 3;
+  }
+  .phead-kicker {
+    position: absolute;
+    left: 27.6rem;
+    top: 13.5rem;
+    z-index: 3;
+    font-size: 9.6rem;
+    white-space: nowrap;
+  }
+  .phead-title {
+    position: absolute;
+    left: 27.6rem;
+    top: var(--h-top, 48.2rem);
+    z-index: 3;
+    font-size: 18rem;
+    letter-spacing: 1.8rem;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .phead-portfolio .phead-title {
+    font-size: 15rem;
+    letter-spacing: 1.5rem;
+  }
+  .phead-socials {
+    position: absolute;
+    left: 170.9rem;
+    top: 91rem;
+    width: 15.1rem;
+    height: 2.465rem;
+    z-index: 3;
+  }
+  .phead-media {
+    position: absolute;
+    left: 0;
+    top: var(--img-top, 98.2rem);
+    width: 100%;
+    height: 108rem;
+  }
+  .play {
+    position: absolute;
+    left: 42.9rem;
+    top: 23.7rem;
+    width: 15.5rem;
+    height: 15.5rem;
+    z-index: 2;
+  }
+  .phead-services .play {
+    top: 21.6rem;
+  }
+  .play-tri {
+    width: 6.41rem;
+    height: 5.55rem;
+  }
+  .phead-script {
+    position: absolute;
+    left: 53.71rem;
+    top: 90.08rem;
+    z-index: 2;
+    font-size: 9.6rem;
+    transform: translate(-50%, -50%) rotate(-9.13deg);
+  }
+  .phead-underline {
+    position: absolute;
+    left: 28.8rem;
+    top: 93.3rem;
+    z-index: 2;
+    width: 54.4rem;
+    height: 9.33rem;
+  }
+
+  /* Services */
+  .can-do {
+    padding: 13.3rem 0 20.1rem;
+    color: #fff;
+  }
+  .sec-title {
+    font-size: 9.6rem;
+  }
+  .can-do .sec-title {
+    margin-left: 31.5rem;
+    white-space: nowrap;
+  }
+  .cd-row {
+    position: relative;
+    margin: 13.3rem 0 0 35.9rem;
+    width: 122.3rem;
+    height: 91.9rem;
+  }
+  .cd-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 44.5rem;
+    min-height: 25.1rem;
+    border-right: 0.2rem solid var(--blue);
+  }
+  .cd-flip .cd-text {
+    left: 76.3rem;
+    width: 46rem;
+    padding-left: 1.4rem;
+    border-right: 0;
+    border-left: 0.2rem solid var(--blue);
+  }
+  .cd-text h3 {
+    font-size: 4.8rem;
+    white-space: nowrap;
+  }
+  .cd-text ul {
+    margin-top: 3.8rem;
+  }
+  .cd-text li {
+    padding-left: 2.1rem;
+    font-size: 2.4rem;
+    font-weight: 100;
+    letter-spacing: 0.24rem;
+  }
+  .cd-text li::before {
+    top: 0.8rem;
+    width: 1rem;
+    height: 1rem;
+  }
+  .cd-row .cd-img {
+    position: absolute;
+    left: 55.9rem;
+    top: 0;
+    width: 64.3rem;
+    height: 91.9rem;
+  }
+  .cd-flip .cd-img {
+    left: 0;
+  }
+
+  .approach {
+    position: relative;
+    height: 167.6rem;
+  }
+  .mega-title {
+    font-size: 15rem;
+  }
+  .approach .mega-title,
+  .team .mega-title,
+  .pf-more .mega-title {
+    position: absolute;
+    left: 21.6rem;
+    width: 148.7rem;
+  }
+  .approach .mega-title { top: 11.4rem; }
+  .team .mega-title { top: 17.1rem; }
+  .pf-more .mega-title { top: 19.4rem; }
+  .ap-grid {
+    position: absolute;
+    left: 11.5rem;
+    top: 39.4rem;
+    display: grid;
+    grid-template-columns: repeat(3, 50rem);
+    column-gap: 9.5rem;
+    row-gap: 13rem;
+  }
+  .ap-card {
+    min-height: 51.1rem;
+  }
+  .ap-num {
+    top: 0;
+    font-size: 35rem;
+    opacity: 0.6;
+  }
+  .ap-card h3 {
+    padding-top: 15.1rem;
+    font-size: 4.8rem;
+    letter-spacing: 0.48rem;
+  }
+  .ap-card p {
+    margin-top: 2.7rem;
+    font-size: 2.4rem;
+    letter-spacing: 0.24rem;
+  }
+
+  /* About */
+  .story {
+    padding: 19.7rem 0 26.5rem;
+    color: #fff;
+  }
+  .story .sec-title,
+  .roster .sec-title {
+    margin-left: 27.6rem;
+    width: 135.6rem;
+    text-align: justify;
+  }
+  .story-text {
+    margin: 5.6rem 0 0 27.6rem;
+    width: 107rem;
+  }
+  .story-text p {
+    font-size: 4rem;
+    font-weight: 100;
+    line-height: 1.05;
+    text-align: justify;
+  }
+  .cg {
+    margin: 19.7rem 0 0 15.7rem;
+    font-size: 10rem;
+  }
+  .team {
+    position: relative;
+    height: 156.9rem;
+  }
+  .team-card {
+    position: absolute;
+    width: 55.9rem;
+    height: 39.8rem;
+    border-radius: 5rem;
+  }
+  .team-1 { left: 7rem; top: 84rem; }
+  .team-2 { left: 68rem; top: 100rem; }
+  .team-3 { left: 129rem; top: 84rem; }
+  .team-avatar {
+    position: absolute;
+    left: 4rem;
+    top: 4.4rem;
+    width: 10.8rem;
+    height: 10.8rem;
+  }
+  .team-card h3 {
+    position: absolute;
+    left: 18.2rem;
+    top: 6.8rem;
+    font-size: 2.4rem;
+  }
+  .team-role {
+    position: absolute;
+    left: 18.2rem;
+    top: 9.4rem;
+    font-size: 1.6rem;
+  }
+  .team-card p {
+    position: absolute;
+    left: 4.6rem;
+    top: 17.7rem;
+    width: 46.9rem;
+    font-size: 2.4rem;
+  }
+
+  /* Talent */
+  .roster {
+    padding: 19.7rem 0 23.5rem;
+    color: #fff;
+  }
+  .roster .sec-title {
+    margin-left: 28.2rem;
+  }
+  .roster-all {
+    margin-top: 21.4rem;
+    text-align: center;
+  }
+  .roster-all .arrow-link {
+    font-size: 6.4rem;
+  }
+
+  /* Portfolio */
+  .pf {
+    padding-bottom: 5.5rem;
+  }
+  .pf-filter {
+    position: absolute;
+    left: 27.6rem;
+    top: -15.6rem;
+    z-index: 3;
+  }
+  .pf-filter h2 {
+    font-size: 4.8rem;
+    letter-spacing: 0.48rem;
+  }
+  .pf-filter div {
+    margin-top: 1.4rem;
+    gap: 3.9rem;
+  }
+  .pf-filter button {
+    font-size: 3.6rem;
+    letter-spacing: 0.36rem;
+  }
+  .pf-cols {
+    align-items: flex-start;
+    gap: 5.3rem;
+    padding-left: 23.4rem;
+    min-height: 130rem;
+  }
+  .pf-col {
+    flex: none;
+    width: 70rem;
+  }
+  .pf-left {
+    padding-top: 24.2rem;
+  }
+  .pf-item {
+    margin-bottom: 10.3rem;
+  }
+  .pf-img {
+    height: 105rem;
+  }
+  .pf-item h3 {
+    margin-top: 4.9rem;
+    font-size: 4.8rem;
+    letter-spacing: 0.48rem;
+  }
+  .pf-item p {
+    margin-top: 0.6rem;
+    font-size: 3.6rem;
+    letter-spacing: 0.36rem;
+    white-space: nowrap;
+  }
+  .pf-more {
+    position: relative;
+    height: 212.1rem;
+  }
+  .mosaic {
+    position: absolute;
+    left: 27.1rem;
+    top: 88.2rem;
+    font-size: 10rem;
+  }
+
+  /* Contact — 1902 tall */
+  .ct {
+    position: relative;
+    height: 190.2rem;
+  }
+  .ct-kicker {
+    position: absolute;
+    left: 27.6rem;
+    top: 8.6rem;
+    font-size: 6.4rem;
+  }
+  .ct-title {
+    position: absolute;
+    left: 27.6rem;
+    top: 26.8rem;
+    font-size: 9.6rem;
+    letter-spacing: 0.96rem;
+    white-space: nowrap;
+  }
+  .ct-form-wrap {
+    position: absolute;
+    left: 27.7rem;
+    top: 41.9rem;
+    width: 89.6rem;
+  }
+  .ct-form {
+    grid-template-columns: 43.575rem 43.72rem;
+    column-gap: 2.3rem;
+    row-gap: 4.1rem;
+  }
+  .ct-form .field {
+    height: 6.64rem;
+    padding: 0 3.2rem;
+    font-size: 2rem;
+    font-weight: 100;
+  }
+  .ct-form .ct-area {
+    height: 29.07rem;
+    padding-top: 3.4rem;
+  }
+  .ct-select img {
+    left: 39.67rem;
+    top: 2.03rem;
+    width: 1.46rem;
+    height: 2.59rem;
+    transform: rotate(90deg);
+  }
+  .ct-send {
+    margin-top: 0.9rem;
+  }
+  .ct-send .btn {
+    width: 22.68rem;
+    height: 7.82rem;
+    font-size: 2rem;
+  }
+  .ct-send .btn img {
+    width: 2.56rem;
+    height: 2.56rem;
+  }
+  .ct-send .form-note {
+    margin-top: 1rem;
+    font-size: 1.6rem;
+  }
+  .ct-side {
+    position: absolute;
+    left: 125rem;
+    top: 0;
+    width: 67rem;
+    height: 125.2rem;
+  }
+  .ct-side-img {
+    position: absolute;
+    top: 0;
+    left: -79.95%;
+    width: 279.64%;
+    height: 100%;
+  }
+  .ct-socials {
+    position: absolute;
+    left: 26rem;
+    top: 11.56rem;
+    width: 15.1rem;
+    height: 2.9rem;
+  }
+  .ct-info {
+    position: absolute;
+    left: 20rem;
+    top: 108rem;
+    width: 105rem;
+    height: 82.2rem;
+  }
+  .ct-city {
+    position: absolute;
+    left: 7.7rem;
+    top: 9.9rem;
+  }
+  .ct-line {
+    width: 7rem;
+    height: 0.4rem;
+    margin-right: 1.3rem;
+  }
+  .ct-city h2 {
+    font-size: 6.4rem;
+  }
+  .ct-lines {
+    position: absolute;
+    left: 16rem;
+    top: 19rem;
+    font-size: 3.2rem;
+    letter-spacing: 0.32rem;
+    white-space: nowrap;
+  }
+  .ct-map {
+    position: absolute;
+    left: 3rem;
+    top: 38.9rem;
+    width: 98.9rem;
+    height: 40.4rem;
+  }
+  .ct-pin {
+    width: 5rem;
+    height: 5rem;
+  }
+  .ct-join {
+    position: absolute;
+    left: 125rem;
+    top: 125.2rem;
+    width: 67rem;
+    height: 65rem;
+  }
+  .ct-join p {
+    position: absolute;
+    left: 9.7rem;
+    top: 4.9rem;
+    width: 47.5rem;
+    font-size: 6.4rem;
+  }
+  .ct-join-link {
+    position: absolute;
+    left: 9.7rem;
+    top: 56rem;
+    font-size: 2rem;
+  }
+
+  .footer-copy {
+    position: absolute;
+    left: 0;
+    top: 74.6rem;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+  }
+}
+
+/* ==========================================================================
+   MOBILE / TABLET
+   ========================================================================== */
+@media (max-width: 900px) {
+  .phead {
+    position: relative;
+    padding: 9.6rem 2.4rem 0;
+  }
+  .phead-plain {
+    padding-bottom: 1.6rem;
+  }
+  .phead-logo {
+    position: absolute;
+    right: 2.4rem;
+    top: 2rem;
+    width: 12.6rem;
+    height: 4rem;
+  }
+  .phead-kicker {
+    font-size: 3.4rem;
+    line-height: 1.05;
+  }
+  .phead-title {
+    margin-top: 2.4rem;
+    font-size: 5rem;
+    letter-spacing: 0.3rem;
+    line-height: 1.05;
+  }
+  .phead-socials {
+    margin: 2.8rem 0;
+    width: 15.1rem;
+    height: 2.465rem;
+  }
+  .phead-media {
+    position: relative;
+    margin: 0 -2.4rem;
+    aspect-ratio: 16 / 11;
+  }
+  .play {
+    position: absolute;
+    left: 2.4rem;
+    top: 2.4rem;
+    width: 6.4rem;
+    height: 6.4rem;
+    z-index: 2;
+  }
+  .play-tri {
+    width: 2.6rem;
+    height: 2.25rem;
+  }
+  .phead-script {
+    position: absolute;
+    left: 2.4rem;
+    bottom: 3.4rem;
+    z-index: 2;
+    font-size: 4.4rem;
+    transform: rotate(-9deg);
+    transform-origin: left bottom;
+  }
+  .phead-underline {
+    position: absolute;
+    left: 2.4rem;
+    bottom: 1.2rem;
+    z-index: 2;
+    width: 23rem;
+    height: 3.95rem;
+  }
+
+  .sec-title {
+    font-size: 3.4rem;
+    line-height: 1.1;
+  }
+  .mega-title {
+    font-size: 4.6rem;
+    line-height: 1.02;
+  }
+
+  .can-do {
+    padding: 6.4rem 2.4rem 7.2rem;
+    color: #fff;
+  }
+  .cd-row {
+    margin-top: 5.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.8rem;
+  }
+  .cd-text {
+    border-left: 0.2rem solid var(--blue);
+    padding-left: 1.6rem;
+  }
+  .cd-text h3 {
+    font-size: 3rem;
+  }
+  .cd-text ul {
+    margin-top: 1.8rem;
+  }
+  .cd-text li {
+    padding-left: 1.8rem;
+    font-size: 1.7rem;
+    font-weight: 200;
+    letter-spacing: 0.06rem;
+    line-height: 1.55;
+  }
+  .cd-text li::before {
+    top: 0.95rem;
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+  .cd-img {
+    aspect-ratio: 643 / 760;
+  }
+
+  .approach,
+  .team {
+    padding: 7.2rem 2.4rem;
+  }
+  .ap-grid {
+    margin-top: 4.8rem;
+    display: grid;
+    gap: 5.6rem;
+  }
+  .ap-num {
+    top: -2rem;
+    font-size: 14rem;
+    opacity: 0.5;
+  }
+  .ap-card h3 {
+    padding-top: 5.6rem;
+    font-size: 2.8rem;
+    letter-spacing: 0.2rem;
+  }
+  .ap-card p {
+    margin-top: 1.4rem;
+    font-size: 1.6rem;
+    letter-spacing: 0.04rem;
+    line-height: 1.45;
+    text-align: left;
+  }
+
+  .story,
+  .roster {
+    padding: 6.4rem 2.4rem 7.2rem;
+    color: #fff;
+  }
+  .story-text {
+    margin-top: 2.4rem;
+  }
+  .story-text p {
+    font-size: 1.7rem;
+    font-weight: 200;
+    line-height: 1.5;
+  }
+  .cg {
+    margin-top: 5.6rem;
+    font-size: 2.129rem;
+  }
+  .cg-note span {
+    font-size: 1.35em;
+  }
+  .team-list {
+    margin-top: 4.8rem;
+    display: grid;
+    gap: 2.4rem;
+  }
+  .team-card {
+    border-radius: 3rem;
+    padding: 2.8rem 2.4rem;
+  }
+  .team-avatar {
+    float: left;
+    width: 7.2rem;
+    height: 7.2rem;
+    margin-right: 1.4rem;
+  }
+  .team-card h3 {
+    padding-top: 1.4rem;
+    font-size: 2rem;
+  }
+  .team-role {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 1.4rem;
+    font-weight: 300;
+  }
+  .team-card p {
+    clear: both;
+    padding-top: 1.6rem;
+    font-size: 1.6rem;
+    line-height: 1.45;
+    text-align: left;
+  }
+  .roster-all {
+    margin-top: 4.8rem;
+    text-align: center;
+  }
+  .roster-all .arrow-link {
+    font-size: 3.2rem;
+  }
+
+  .pf {
+    padding: 1.6rem 2.4rem 4rem;
+  }
+  .pf-filter h2 {
+    font-size: 2.4rem;
+    letter-spacing: 0.2rem;
+  }
+  .pf-filter div {
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+  }
+  .pf-filter button {
+    font-size: 1.8rem;
+    letter-spacing: 0.1rem;
+  }
+  .pf-cols {
+    margin-top: 4rem;
+    flex-direction: column-reverse;
+  }
+  .pf-item {
+    margin-bottom: 4.8rem;
+  }
+  .pf-img {
+    aspect-ratio: 4 / 5;
+  }
+  .pf-item h3 {
+    margin-top: 1.8rem;
+    font-size: 2.8rem;
+    letter-spacing: 0.2rem;
+  }
+  .pf-item p {
+    margin-top: 0.6rem;
+    font-size: 1.6rem;
+    letter-spacing: 0.1rem;
+  }
+  .pf-more {
+    padding: 7.2rem 2.4rem 2rem;
+  }
+  .mosaic {
+    margin-top: 4.8rem;
+    font-size: 2.48rem;
+  }
+
+  .ct {
+    position: relative;
+    padding-top: 9.6rem;
+  }
+  .ct-kicker {
+    padding: 0 2.4rem;
+    font-size: 3.4rem;
+    line-height: 1.05;
+  }
+  .ct-title {
+    padding: 0 2.4rem;
+    margin-top: 2.4rem;
+    font-size: 4.4rem;
+    letter-spacing: 0.2rem;
+  }
+  .ct-form-wrap {
+    padding: 0 2.4rem;
+    margin-top: 3.2rem;
+  }
+  .ct-form {
+    gap: 1.4rem;
+  }
+  .ct-form .field {
+    height: 5.4rem;
+    padding: 0 2rem;
+    font-size: max(1.7rem, 16px);
+    font-weight: 300;
+  }
+  .ct-form .ct-area {
+    height: 18rem;
+    padding-top: 1.6rem;
+  }
+  .ct-select img {
+    right: 2rem;
+    top: 50%;
+    width: 1rem;
+    height: 1.8rem;
+    transform: translateY(-50%) rotate(90deg);
+  }
+  .ct-send {
+    margin-top: 1rem;
+  }
+  .ct-send .btn {
+    width: 16rem;
+    height: 5.4rem;
+    font-size: 1.6rem;
+  }
+  .ct-send .btn img {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  .ct-send .form-note {
+    margin-top: 1rem;
+  }
+  .ct-side {
+    position: relative;
+    margin-top: 5.6rem;
+    height: 36rem;
+  }
+  .ct-side-img {
+    position: absolute;
+    inset: 0;
+  }
+  .ct-socials {
+    position: absolute;
+    right: 2.4rem;
+    top: 2.4rem;
+    width: 15.1rem;
+    height: 2.9rem;
+  }
+  .ct-info {
+    padding: 4.8rem 2.4rem 2.4rem;
+  }
+  .ct-line {
+    width: 4rem;
+    height: 0.3rem;
+    margin-right: 1.2rem;
+  }
+  .ct-city h2 {
+    font-size: 3.6rem;
+  }
+  .ct-lines {
+    margin-top: 1.8rem;
+    font-size: 1.7rem;
+    letter-spacing: 0.08rem;
+    line-height: 1.7;
+  }
+  .ct-map {
+    position: relative;
+    margin-top: 3.2rem;
+    aspect-ratio: 989 / 404;
+  }
+  .ct-pin {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .ct-join {
+    padding: 5.6rem 2.4rem 6.4rem;
+  }
+  .ct-join p {
+    font-size: 3.2rem;
+  }
+  .ct-join-link {
+    display: inline-block;
+    margin-top: 3.2rem;
+    font-size: 1.6rem;
+  }
+
+  .footer-copy {
+    margin-top: 3.2rem;
+    font-size: 1.3rem;
+    opacity: 0.85;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .ap-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .team-list {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cd-row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .cd-row > * {
+    flex: 1;
+  }
+  .cd-flip {
+    flex-direction: row-reverse;
+  }
+  .pf-cols {
+    flex-direction: row-reverse;
+    gap: 2.4rem;
+  }
+  .pf-col {
+    flex: 1;
+  }
+  .ct-form {
+    grid-template-columns: 1fr 1fr;
+  }
+}
